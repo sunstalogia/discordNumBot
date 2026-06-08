@@ -2,6 +2,19 @@ import os
 import discord
 from discord import app_commands
 import re
+from threading import Thread
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Bot is running"
+
+def run_web():
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+
+Thread(target=run_web).start()
 
 TOKEN = os.getenv("TOKEN")
 
